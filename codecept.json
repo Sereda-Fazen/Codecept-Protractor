@@ -1,0 +1,27 @@
+{
+  "tests": "./*_test.js",
+  "timeout": 10000,
+  "output": "./output",
+  "helpers": {
+    "Protractor": {
+      "url": "https://uk.mycs.io",
+      "driver": "hosted",
+      "browser": "chrome",
+      "rootElement": "body"
+    },
+    "Protractor_test": {
+      "require": "./pr_helper.js"
+    }
+  },
+  "include": {
+    "I": "./steps_file.js",
+    "ProtractorPage": "./pages/protractor_page.js"
+  },
+  "bootstrap": false,
+  "mocha": {
+    "reporterOptions": {
+      "reportDir": "output"
+    }
+  },
+  "name": "protractor_js"
+}
