@@ -8,7 +8,7 @@ module.exports = {
   _init() {
     I = require('../steps_file.js')();
   },
-  
+
   homePage: '/',
   waitShelves: '[ng-href="/shelf/configurator"]',
 
@@ -31,6 +31,18 @@ module.exports = {
   firstBorder: 'div > div:nth-of-type(1) > mx-overlay-button > div > div > svg > circle',
   secondBorder: 'div > div:nth-of-type(2) > mx-overlay-button > div > div > svg > circle',
 
+  waitColours: '[class="tabs clearfix ng-scope"]',
+
+  assemblyService: 'class="mx-checkbox__label ng-binding"',
+  backWalls: '[ng-if="!$ctrl.disable"]',
+
+    checkboxAssembly: '[for="checkbox-assembly-service"]',
+    checkboxBackWalls: '[for="checkbox-shelf-backwalls"]',
+
+    save: '[class="icon-button icon-button--vertical icon-button--square icon-button--white"]',
+    accountPanel: '[class="account panel"]',
+    fillEmail: '[class="input-wrapper__input  ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-valid-minlength ng-valid-maxlength input-wrapper__input--required ng-valid-email"]',
+    buttonSend: '[class="button__text "]',
 
   home(){
     I.resizeWindow(1920, 1080);
@@ -129,7 +141,7 @@ module.exports = {
 
     coloursTab(){
 
-      I.waitForElement('[class="tabs clearfix ng-scope"]');
+      I.waitForElement(this.waitColours);
       I.colours();
       I.waitForElement(this.coloursBoard);
 
@@ -156,9 +168,9 @@ module.exports = {
        I.see('You are coloring 2 Boards', this.explanatoryLine);
 
        I.waitForElement(this.apply);
-       I.click('[uib-tooltip="Apply modification"]');
+       I.click(this.apply);
        I.waitForText('£1,275', 10);
-       I.see('£1,275', '[class="product-info-shelf"]');
+       I.see('£1,275', this.price);
        I.saveScreenshot('price4.png');
        },
 
@@ -169,31 +181,42 @@ module.exports = {
 
        reviewTab(){
        I.review();
-       I.waitForElement('[class="explanatory-line"]');
-       // I.seeElement('[ng-if="$ctrl.assemblyPrice"]');
-       //I.seeElement('[ng-if="!$ctrl.disable"]');
-       I.click('[for="checkbox-assembly-service"]');
-       //price changes
+       I.waitForElement(this.explanatoryLine);
+       //I.see(this.explanatoryLine);
+       I.click(this.checkboxAssembly);
+
 
        I.waitForText('£1,751', 10);
-       I.see('£1,751', '[class="product-info-shelf"]');
+       I.see('£1,751', this.price);
 
-       I.click('[for="checkbox-shelf-backwalls"]');
-       //price changes
+       I.click(this.checkboxBackWalls);
+
        I.waitForText('£2,127', 10);
-       I.see('£2,127', '[class="product-info-shelf"]');
+       I.see('£2,127', this.price);
        I.saveScreenshot('price5.png');
 
 
        //save
 
-       I.waitForElement('[class="icon-button icon-button--vertical icon-button--square icon-button--white"]');
-       I.click('[class="icon-button icon-button--vertical icon-button--square icon-button--white"]');
-       I.waitForElement('[class="account panel"]');
+       I.waitForElement(this.save);
+       I.click(this.save);
+       I.waitForElement(this.accountPanel);
 
-       I.fillField('[class="input-wrapper__input  ng-empty ng-invalid ng-invalid-required ng-valid-pattern ng-valid-minlength ng-valid-maxlength input-wrapper__input--required ng-valid-email"]', 'test@mail.ru');
-       I.waitForElement('[class="button__text "]');
+       I.fillField(this.fillEmail, 'test@mail.ru');
+       I.waitForElement(this.buttonSend);
        }
+
+
+
+
+
+
+
+
+
+
+
+
        // I.click('[class="button__text "]');
 
        //I.waitForElement('[ng-bind-html="notification.msg"]');

@@ -4,9 +4,14 @@
 
 module.exports = function() {
   return actor({
-    
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
 
+    price: '[class="product-info-shelf"]',
+
+    checkPrice: function (title) {
+      this.waitForElement(this.price, 10);
+      this.waitForText(title);
+      this.see(title, this.price);
+    }
   });
-}
+
+};
